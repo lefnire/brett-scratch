@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Note() {
+export default function Notes() {
   return <div>
     <h2 id="original-blog-post">Original blog post</h2>
     <p>I started this based on following this <a
