@@ -1,26 +1,28 @@
 import React, {useState, useEffect} from 'react'
+import useStore from '../store'
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import {Link} from 'react-router-dom'
 
 
-interface Props {
-  instances: any
-}
+export default function ListInstances() {
+  const instances = useStore(store => store.instances)
 
-export default function Instances({instances}: Props) {
   return <div>
     <Button
       variant="contained"
-      href="/new"
+      component={Link}
+      to="/new"
+      sx={{mb: 2}}
     >
       Create Instance
     </Button>
 
-    {instances.map((instance: any, index: number) => <>
+    {instances.map((instance) => <>
       <Card sx={{minWidth: 275, mb: 2}}>
         <CardContent>
           <Typography sx={{fontSize: 14}} color="text.secondary" gutterBottom>

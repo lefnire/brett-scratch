@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
+import useStore from '../store'
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -51,23 +52,20 @@ function BasicSelect({id, form, label, item, setItem, options}: BasicSelectProps
 }
 
 
-interface Props {
-  setInstances: any
-  instances: any
-}
+export default function CreateInstance() {
+  const addInstance = useStore(store => store.addInstance)
 
-export default function CreateInstance({instances, setInstances}: Props) {
   let navigate = useNavigate();
   const [form, setForm] = useState({
-    instanceType: 'g2.2xlarge',
+    instanceType: 'g5.2xlarge',
     storage: "512",
     spot: false,
     region: 'us-east-1',
   })
 
   const instanceTypes = [
-    {value: 'g2.2xlarge', label: 'g2.2xlarge'},
-    {value: 'g2.xlarge', label: 'g2.xlarge'},
+    {value: 'g5.2xlarge', label: 'g5.2xlarge'},
+    {value: 'g5.xlarge', label: 'g5.xlarge'},
     {value: 'p2.xlarge', label: 'p2.xlarge'},
   ]
 
@@ -81,10 +79,12 @@ export default function CreateInstance({instances, setInstances}: Props) {
   }
 
   function save() {
-    setInstances([
-      ...instances,
-      form
-    ])
+
+    addInstance({
+      ...form,
+      instanceId: '123',
+      dateCreated: new Date().toDateString()
+    })
     navigate(`/`);
   }
 

@@ -8,37 +8,48 @@ import ListItemText from "@mui/material/ListItemText";
 import LoginIcon from '@mui/icons-material/Login';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import StorageIcon from '@mui/icons-material/Storage';
-import {Outlet} from "react-router-dom";
+import {Outlet, useNavigate, Link, useLocation} from "react-router-dom";
+import useStore from '../store'
 
-interface Props {
-  loggedIn: boolean
-  setLoggedIn: any
-}
+export default function Wrapper() {
+  let navigate = useNavigate()
+  const {pathname} = useLocation()
+  const loggedIn = useStore(store => store.loggedIn)
+  const setLoggedIn = useStore(store => store.setLoggedIn)
 
-export default function Wrapper(
-  {loggedIn, setLoggedIn}: Props
-) {
   const title = "DIY Cloud Gaming"
 
-  function authenticate() {
-    setLoggedIn(!loggedIn)
+  const auth = () => {
+    setLoggedIn()
+    navigate(`/`);
   }
 
-  const appBarLinks = [
-    // <Button href='/login' color="inherit">Login</Button>,
-    <Button onClick={authenticate} color="inherit">{loggedIn ? "Logout" : "Login"}</Button>,
-    <Button href='/about' color="inherit">About</Button>
+  let appBarLinks = [
+    <Button component={Link} to='/about' color="inherit">About</Button>
   ]
-  const sideBarLinksArray = loggedIn ? [
-    {text: "Instances", href: "/", icon: <StorageIcon />},
-    {text: "Account", href: "/account", icon: <AccountBoxIcon />}
+  appBarLinks = loggedIn ? [
+    <Button component={Link} to="/" color="inherit">Dashboard</Button>,
+    ...appBarLinks,
+    <Button onClick={auth} color="inherit">Logout</Button>,
   ] : [
-    {text: "About", href: "/about", icon: null},
-    {text: "Notes", href: "/about/notes", icon: null},
+    <Button onClick={auth} color="inherit">Login</Button>,
+    ...appBarLinks
   ]
-  const sideBarLinks = sideBarLinksArray.map(({text, href, icon}, index) => (
+
+  const aboutLinks = [
+    {text: "About", to: "/about", icon: null},
+    {text: "Notes", to: "/about/notes", icon: null},
+  ]
+  const accountLinks = [
+    {text: "Instances", to: "/", icon: <StorageIcon />},
+    {text: "Account", to: "/account", icon: <AccountBoxIcon />}
+  ]
+  const sideBarLinksArray = pathname.includes('about') ? aboutLinks
+    : loggedIn ? accountLinks : aboutLinks
+
+  const sideBarLinks = sideBarLinksArray.map(({text, to, icon}, index) => (
     <ListItem key={text} disablePadding>
-      <ListItemButton href={href}>
+      <ListItemButton component={Link} to={to}>
         <ListItemIcon>
           {icon}
         </ListItemIcon>
