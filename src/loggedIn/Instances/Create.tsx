@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { useNavigate } from "react-router-dom";
-import useStore from '../store'
+import useStore from '../../store'
 
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
@@ -52,7 +52,7 @@ function BasicSelect({id, form, label, item, setItem, options}: BasicSelectProps
 }
 
 
-export default function CreateInstance() {
+export default function Create() {
   const addInstance = useStore(store => store.addInstance)
 
   let navigate = useNavigate();
@@ -85,7 +85,7 @@ export default function CreateInstance() {
       instanceId: '123',
       dateCreated: new Date().toDateString()
     })
-    navigate(`/`);
+    navigate(`/instances`);
   }
 
   return <div>

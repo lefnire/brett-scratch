@@ -1,6 +1,17 @@
 import create from 'zustand'
 import { persist } from "zustand/middleware"
 
+interface User {
+  email: string
+  username: string
+}
+
+interface Friend {
+  email: string
+  username: string
+  online: boolean
+  // sharedInstances: Instance[]
+}
 
 interface Instance {
   instanceId: string
@@ -17,6 +28,13 @@ interface Store {
 
   instances: Instance[]
   addInstance: (instance: Instance) => void
+
+  friends: Friend[]
+  addFriend: (friend: Friend) => void
+  removeFriend: (friend: Friend) => void
+
+  user: User
+  setUser: (user: User) => void
 }
 
 // const [loggedIn, setLoggedIn] = useState(false)
@@ -26,6 +44,12 @@ const useStore = create(persist<Store>(
     setLoggedIn: () => set(state => {
       return {loggedIn: !state.loggedIn}
     }),
+
+    user: {
+      email: 'x@y.com',
+      username: "impiorum"
+    },
+    setUser: (user: User) => set(state => ({user})),
 
     instances: [
       {
@@ -47,7 +71,15 @@ const useStore = create(persist<Store>(
     ],
     addInstance: (instance) => set(state => ({
       instances: [...state.instances, instance]
-    }))
+    })),
+
+    friends: [
+      {email: "x@y.com", username: "lefnire", online: true},
+      {email: "x@z.com", username: "impiorum", online: false},
+    ],
+    addFriend: (friend) => set(state => ({})),
+    removeFriend: (friend) => set(state => ({})),
+
   }),
   {
     name: "diy-storage", // unique name

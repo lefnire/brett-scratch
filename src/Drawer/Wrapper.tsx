@@ -9,7 +9,9 @@ import LoginIcon from '@mui/icons-material/Login';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import StorageIcon from '@mui/icons-material/Storage';
 import {Outlet, useNavigate, Link, useLocation} from "react-router-dom";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import useStore from '../store'
+import PeopleIcon from '@mui/icons-material/People';
 
 export default function Wrapper() {
   let navigate = useNavigate()
@@ -39,10 +41,15 @@ export default function Wrapper() {
   const aboutLinks = [
     {text: "About", to: "/about", icon: null},
     {text: "Notes", to: "/about/notes", icon: null},
+    {text: "Streaming Setup", to: "/about/streaming-setup", icon: null},
+    {text: "v2 (coming later)", to: "/about/v2", icon: null},
+    {text: "Why DIY", to: "/about/why-diy", icon: null},
   ]
   const accountLinks = [
-    {text: "Instances", to: "/", icon: <StorageIcon />},
-    {text: "Account", to: "/account", icon: <AccountBoxIcon />}
+    {text: "Dashboard", to: "/", icon: <DashboardIcon />},
+    {text: "Instances", to: "/instances", icon: <StorageIcon />},
+    {text: "Account", to: "/account", icon: <AccountBoxIcon />},
+    {text: "Friends", to: "/friends", icon: <PeopleIcon />}
   ]
   const sideBarLinksArray = pathname.includes('about') ? aboutLinks
     : loggedIn ? accountLinks : aboutLinks

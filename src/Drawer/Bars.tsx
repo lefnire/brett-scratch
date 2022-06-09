@@ -11,12 +11,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import {Link} from 'react-router-dom'
 
 const drawerWidth = 240;
 
@@ -107,9 +102,9 @@ export default function Bars(
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            sx={{flexGrow: 1}}
-            href="/"
+            component={Link}
+            sx={{flexGrow: 1, textDecoration: "none", color: "inherit"}}
+            to="/"
           >
             {title}
           </Typography>

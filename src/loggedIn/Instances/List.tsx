@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import useStore from '../store'
+import useStore from '../../store'
 
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -9,14 +9,14 @@ import Typography from '@mui/material/Typography';
 import {Link} from 'react-router-dom'
 
 
-export default function ListInstances() {
+export default function List() {
   const instances = useStore(store => store.instances)
 
   return <div>
     <Button
       variant="contained"
       component={Link}
-      to="/new"
+      to="/instances/new"
       sx={{mb: 2}}
     >
       Create Instance
