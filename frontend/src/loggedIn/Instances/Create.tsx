@@ -79,7 +79,7 @@ export default function Create() {
   }
 
   function save() {
-
+    // POST to /instances this form, comment out below code
     addInstance({
       ...form,
       instanceId: '123',
